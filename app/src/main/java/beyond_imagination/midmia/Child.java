@@ -20,6 +20,23 @@ public class Child implements Parcelable {
     public Child(){
     }
 
+    public String checkFullFilled(){
+        if(photo==null)
+            return "사진";
+        if(name==null||name.equals(""))
+            return  "이름";
+        if(age==0)
+            return "나이";
+        if(gender==0)
+            return "성별";
+        if(distance==0)
+            return "안전거리";
+        if(cycle==0)
+            return "수신주기";
+
+        return "성공";
+    }
+
     protected Child(Parcel in) {
         photo = in.readParcelable(Bitmap.class.getClassLoader());
         name = in.readString();
@@ -54,23 +71,6 @@ public class Child implements Parcelable {
         dest.writeInt(gender);
         dest.writeInt(distance);
         dest.writeInt(cycle);
-    }
-
-    public String checkFullFilled(){
-        if(photo==null)
-            return "사진";
-        if(name==null||name.equals(""))
-            return  "이름";
-        if(age==0)
-            return "나이";
-        if(gender==0)
-            return "성별";
-        if(distance==0)
-            return "안전거리";
-        if(cycle==0)
-            return "수신주기";
-
-        return "성공";
     }
 
     public Bitmap getPhoto() {
