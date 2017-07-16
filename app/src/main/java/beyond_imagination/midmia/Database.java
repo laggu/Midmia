@@ -1,6 +1,7 @@
 package beyond_imagination.midmia;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -33,9 +34,9 @@ public class Database {
         db = databaseHelper.getWritableDatabase();
     }
 
-    public static void insertIntoDatabase(Child child){
+    public static void insertRecord(Child child){
         try{
-            SQLiteStatement p = db.compileStatement("insert into " + CHILDTABLENAME + "values (?,?,?,?,?,?)");
+            SQLiteStatement p = db.compileStatement("insert into " + CHILDTABLENAME + " values (?,?,?,?,?,?)");
             p.bindString(1, child.getName());
             p.bindLong(2, child.getAge());
             p.bindLong(3, child.getGender());
@@ -53,6 +54,28 @@ public class Database {
         catch (Exception e){
 
         }
+    }
+
+    public static void updateRecord(Child child){
+        ContentValues recordValues = new ContentValues();
+        recordValues.put("age", child.getAge());
+        recordValues.put("gender", child.getGender());
+        recordValues.put("distance", child.getDistance());
+        recordValues.put("cycle", child.getCycle());
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        child.getPhoto().compress(Bitmap.CompressFormat.PNG,100,stream);
+        byte[] photo = stream.toByteArray();
+
+        recordValues.put("photo", photo);
+        String[] whereArgs = {child.getName()};
+        db.update(CHILDTABLENAME, recordValues, "name = ?", whereArgs);
+    }
+
+    public static void deleteRecord(Child child){
+        String[] whereArgs = {child.getName()};
+
+        db.delete(CHILDTABLENAME, "name = ?", whereArgs);
     }
 
     public static ArrayList<Child> readFromDatabase(){
@@ -80,8 +103,6 @@ public class Database {
         }
         return list;
     }
-
-
 
     private static class DatabaseHelper extends SQLiteOpenHelper{
         private DatabaseHelper(){

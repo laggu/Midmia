@@ -15,6 +15,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import beyond_imagination.midmia.Child;
+import beyond_imagination.midmia.Database;
 import beyond_imagination.midmia.MainActivity;
 import beyond_imagination.midmia.R;
 import beyond_imagination.midmia.pChildInfoActivity.ChildInfoActivity;
@@ -71,6 +72,7 @@ public class SettingFragment extends ListFragment {
                 Child child = bundle.getParcelable("child");
 
                 children.set(lastClickedPosition, child);
+                Database.updateRecord(child);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.detach(this).attach(this).commit();

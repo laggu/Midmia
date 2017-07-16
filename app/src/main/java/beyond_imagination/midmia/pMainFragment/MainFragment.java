@@ -62,7 +62,7 @@ public class MainFragment extends Fragment {
                 Bundle bundle = data.getExtras();
                 Child child = bundle.getParcelable("child");
                 children.add(child);
-                Database.insertIntoDatabase(child);
+                Database.insertRecord(child);
         }
     }
 }
