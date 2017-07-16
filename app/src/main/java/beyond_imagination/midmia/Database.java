@@ -22,18 +22,18 @@ public class Database {
     private static final String CHILDTABLENAME = "child";
 
 
-    private Activity activity;
-    private DatabaseHelper databaseHelper;
-    private SQLiteDatabase db;
+    private static Activity activity;
+    private static DatabaseHelper databaseHelper;
+    private static SQLiteDatabase db;
 
-    public Database(Activity activity){
-        this.activity = activity;
+    public static void setDatabase(Activity activity){
+        Database.activity = activity;
 
         databaseHelper = new DatabaseHelper();
         db = databaseHelper.getWritableDatabase();
     }
 
-    void insertIntoDatabase(Child child){
+    public static void insertIntoDatabase(Child child){
         try{
             SQLiteStatement p = db.compileStatement("insert into " + CHILDTABLENAME + "values (?,?,?,?,?,?)");
             p.bindString(1, child.getName());
@@ -55,7 +55,7 @@ public class Database {
         }
     }
 
-    ArrayList<Child> readFromDatabase(){
+    public static ArrayList<Child> readFromDatabase(){
         ArrayList<Child> list = new ArrayList<Child>(5);
         try {
             Cursor c = db.rawQuery("select * from " + CHILDTABLENAME, null);
@@ -83,7 +83,7 @@ public class Database {
 
 
 
-    private class DatabaseHelper extends SQLiteOpenHelper{
+    private static class DatabaseHelper extends SQLiteOpenHelper{
         private DatabaseHelper(){
             super(activity, DBNAME, null, 1);
         }

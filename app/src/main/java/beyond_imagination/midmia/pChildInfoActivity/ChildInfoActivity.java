@@ -13,9 +13,9 @@ import beyond_imagination.midmia.R;
 
 public class ChildInfoActivity extends AppCompatActivity {
 
-    public static final int PICK_FROM_CAMERA = 2000;
-    public static final int PICK_FROM_ALBUM = 2001;
-    public static final int CROP_THE_IMAGE = 2002;
+    public static final int PICK_FROM_CAMERA = 4001;
+    public static final int PICK_FROM_ALBUM = 4002;
+    public static final int CROP_THE_IMAGE = 4003;
 
     private ChildImageButton childImageButton;
     private NameEditText nameEditText;

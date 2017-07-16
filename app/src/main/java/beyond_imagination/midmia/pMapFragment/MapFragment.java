@@ -13,7 +13,7 @@ import beyond_imagination.midmia.R;
  * Created by laggu on 2017-07-15.
  */
 
-public class MapFragment  extends Fragment {
+public class MapFragment extends Fragment {
 
     @Nullable
     @Override
