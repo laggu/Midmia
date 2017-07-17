@@ -8,10 +8,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static beyond_imagination.midmia.pChildInfoActivity.ChildInfoActivity.PICK_FROM_CAMERA;
 
 /**
  * Created by laggu on 2017-07-06.

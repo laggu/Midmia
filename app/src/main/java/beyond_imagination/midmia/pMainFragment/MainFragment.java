@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 
@@ -28,27 +29,20 @@ public class MainFragment extends Fragment {
 
     private ArrayList<Child> children;
     private Button addChildButton;
+    private ViewFlipper flipper;
+    ViewGroup rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
-
+        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
         children = ((MainActivity)getActivity()).getChildren();
 
-        addChildButton = (Button) rootView.findViewById(R.id.addChildButton);
-        addChildButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChildInfoActivity.class);
-                intent.putExtra("flag",1);
-                startActivityForResult(intent, CHILD_INFO_ACTIVITY);
-            }
-        });
+        setAddChildButton();
+        setFlipper();
 
         return rootView;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -64,5 +58,31 @@ public class MainFragment extends Fragment {
                 children.add(child);
                 Database.insertRecord(child);
         }
+    }
+
+    private void setFlipper(){
+        flipper = (ViewFlipper) rootView.findViewById(R.id.viewFlipper);
+
+        for(int i = 0 ; i < children.size(); ++i){
+            ChildImageView image = new ChildImageView(getContext());
+            image.setImageBitmap(children.get(i).getPhoto());
+            flipper.addView(image);
+        }
+    }
+
+    private void setAddChildButton(){
+        addChildButton = (Button) rootView.findViewById(R.id.addChildButton);
+        addChildButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChildInfoActivity.class);
+                intent.putExtra("flag",1);
+                startActivityForResult(intent, CHILD_INFO_ACTIVITY);
+            }
+        });
+    }
+
+    ArrayList getChildren(){
+        return children;
     }
 }

@@ -1,0 +1,61 @@
+package beyond_imagination.midmia.pMainFragment;
+
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import beyond_imagination.midmia.Child;
+import beyond_imagination.midmia.MainActivity;
+import beyond_imagination.midmia.R;
+
+/**
+ * Created by laggu on 2017-07-17.
+ */
+
+public class ChildImageView extends android.support.v7.widget.AppCompatImageView {
+    ArrayList<Child> children;
+
+    public ChildImageView(Context context) {
+        super(context);
+        init(context);
+    }
+
+    private void init(Context context){
+        final MainActivity activity = (MainActivity)context;
+        children =  activity.getChildren();
+        setImageBitmap(getCroppedBitmap(children.get(0).getPhoto()));
+
+    }
+
+    private Bitmap getCroppedBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+}
