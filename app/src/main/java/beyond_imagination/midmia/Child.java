@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import beyond_imagination.midmia.pService.ChildLocation;
+
 /**
  * Created by laggu on 2017-07-10.
  */
@@ -16,8 +18,10 @@ public class Child implements Parcelable {
     private int gender;
     private int distance;
     private int cycle;
+    private ChildLocation location;
 
     public Child(){
+        location = new ChildLocation();
     }
 
     public String checkFullFilled(){
@@ -117,5 +121,13 @@ public class Child implements Parcelable {
 
     public void setCycle(int cycle) {
         this.cycle = cycle;
+    }
+
+    public ChildLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(ChildLocation location) {
+        this.location = location;
     }
 }

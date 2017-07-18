@@ -22,7 +22,6 @@ public class Database {
     private static final String DBNAME = "midmia";
     private static final String CHILDTABLENAME = "child";
 
-
     private static Activity activity;
     private static DatabaseHelper databaseHelper;
     private static SQLiteDatabase db;

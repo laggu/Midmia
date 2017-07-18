@@ -22,7 +22,7 @@ import beyond_imagination.midmia.R;
 public class ChildrenViewFlipper extends ViewFlipper {
     MainActivity activity;
     private ArrayList<Child> children;
-    Animation slide_in_left, slide_out_right;
+    Animation slide_in_left, slide_out_right, slide_in_right, slide_out_left;
     float downX;
     int currentIndex;
 
@@ -38,8 +38,7 @@ public class ChildrenViewFlipper extends ViewFlipper {
         children = activity.getChildren();
 
         for(int i = 0 ; i < children.size(); ++i){
-            ChildImageView image = new ChildImageView(getContext());
-            image.setImageBitmap(children.get(i).getPhoto());
+            ChildImageView image = new ChildImageView(getContext(),children.get(i).getPhoto());
             addView(image);
         }
     }
@@ -47,21 +46,23 @@ public class ChildrenViewFlipper extends ViewFlipper {
     private void setSlide(){
         slide_in_left = AnimationUtils.loadAnimation(activity, android.R.anim.slide_in_left);
         slide_out_right = AnimationUtils.loadAnimation(activity, android.R.anim.slide_out_right);
+        slide_in_right = AnimationUtils.loadAnimation(activity, R.anim.slide_in_right);
+        slide_out_left = AnimationUtils.loadAnimation(activity, R.anim.slide_out_left);
 
         setOnTouchListener(MyTouchListener);
     }
 
     private void MoveNextView()
     {
-        setInAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.slide_out_right));
-        setOutAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.slide_in_left));
+        setInAnimation(slide_in_right);
+        setOutAnimation(slide_out_left);
         showNext();
     }
 
     private void MovewPreviousView()
     {
-        setInAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.slide_in_left));
-        setOutAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.slide_out_right));
+        setInAnimation(slide_in_left);
+        setOutAnimation(slide_out_right);
         showPrevious();
     }
 

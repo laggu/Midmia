@@ -27,18 +27,14 @@ import beyond_imagination.midmia.R;
  */
 
 public class ChildImageView extends android.support.v7.widget.AppCompatImageView {
-    ArrayList<Child> children;
 
-    public ChildImageView(Context context) {
+    public ChildImageView(Context context, Bitmap photo) {
         super(context);
-        init(context);
+        init(photo);
     }
 
-    private void init(Context context){
-        final MainActivity activity = (MainActivity)context;
-        children =  activity.getChildren();
-        setImageBitmap(getCroppedBitmap(children.get(0).getPhoto()));
-
+    private void init(Bitmap photo){
+        setImageBitmap(getCroppedBitmap(photo));
     }
 
     private Bitmap getCroppedBitmap(Bitmap bitmap) {

@@ -7,6 +7,10 @@ package beyond_imagination.midmia.pService;
 public class ChildLocation {
     double latitude, longitude;
 
+    public ChildLocation(){
+
+    }
+
     ChildLocation(double latitude, double longitude){
         this.latitude = latitude;
         this.longitude = longitude;

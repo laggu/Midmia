@@ -29,17 +29,18 @@ public class MainFragment extends Fragment {
 
     private ArrayList<Child> children;
     private Button addChildButton;
-    private ViewFlipper flipper;
+    private PointImageView pointImageView;
     ViewGroup rootView;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
         children = ((MainActivity)getActivity()).getChildren();
+        pointImageView = (PointImageView) (rootView.findViewById(R.id.pointImageView));
 
         setAddChildButton();
-        setFlipper();
 
         return rootView;
     }
@@ -60,16 +61,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void setFlipper(){
-        flipper = (ViewFlipper) rootView.findViewById(R.id.viewFlipper);
-
-        for(int i = 0 ; i < children.size(); ++i){
-            ChildImageView image = new ChildImageView(getContext());
-            image.setImageBitmap(children.get(i).getPhoto());
-            flipper.addView(image);
-        }
-    }
-
     private void setAddChildButton(){
         addChildButton = (Button) rootView.findViewById(R.id.addChildButton);
         addChildButton.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +75,9 @@ public class MainFragment extends Fragment {
 
     ArrayList getChildren(){
         return children;
+    }
+
+    public void rotatePointView(float azimuth){
+        pointImageView.rotateViewTo(azimuth);
     }
 }

@@ -15,7 +15,9 @@
         <TextView
             android:id="@+id/textView_miaDialog"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@string/mia_dialog_text"
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +28,13 @@
                 android:id="@+id/yesButton_miaDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아니요"/>
+                android:text="안다"/>
 
             <Button
                 android:id="@+id/noButton_miaDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="네"/>
+                android:text="모른다"/>
 
         </LinearLayout>
     </LinearLayout>

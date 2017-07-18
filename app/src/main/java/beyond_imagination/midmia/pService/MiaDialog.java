@@ -16,14 +16,14 @@ import beyond_imagination.midmia.R;
  * Created by laggu on 2017-07-17.
  */
 
-class MiaDialog extends Dialog {
+public class MiaDialog extends Dialog {
     ImageView imageView;
     TextView textView;
     Button noButton, yesButton;
     Child child;
     boolean lost;
 
-    MiaDialog(@NonNull Context context, Child child) {
+    public MiaDialog(@NonNull Context context, Child child) {
         super(context);
         this.child = child;
     }
@@ -31,20 +31,27 @@ class MiaDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_mia);
 
         imageView = (ImageView) findViewById(R.id.imageView_miaDialog);
         textView = (TextView)findViewById(R.id.textView_miaDialog);
         noButton = (Button) findViewById(R.id.noButton_miaDialog);
         yesButton = (Button) findViewById(R.id.yesButton_miaDialog);
 
-        imageView.setImageBitmap(child.getPhoto());
-
-        textView.setText("아이와 연결이 끊어졌습니다." +
-                "\n아이의 위치를 알고 있나요?");
+        //imageView.setImageBitmap(child.getPhoto());
 
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    Server server = new Server();
+                    server.uploadData(2.0,1.0);
+                }
+                catch (Exception e){
+
+                }
+
+                lost = true;
                 dismiss();
             }
         });
@@ -52,14 +59,12 @@ class MiaDialog extends Dialog {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Server.uploadData(1.0,1.0);
-                lost = true;
                 dismiss();
             }
         });
     }
 
-    boolean isLost(){
+    public boolean isLost(){
         return lost;
     }
 }
