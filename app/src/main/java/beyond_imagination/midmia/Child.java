@@ -18,6 +18,7 @@ public class Child implements Parcelable {
     private int gender;
     private int distance;
     private int cycle;
+    private String deviceInfo;
     private ChildLocation location;
 
     public Child(){
@@ -37,7 +38,8 @@ public class Child implements Parcelable {
             return "안전거리";
         if(cycle==0)
             return "수신주기";
-
+        if(name==null||deviceInfo.equals(""))
+            return "블루투스연결";
         return "성공";
     }
 
@@ -48,6 +50,7 @@ public class Child implements Parcelable {
         gender = in.readInt();
         distance = in.readInt();
         cycle = in.readInt();
+        deviceInfo = in.readString();
     }
 
     protected static final Creator<Child> CREATOR = new Creator<Child>() {
@@ -75,6 +78,7 @@ public class Child implements Parcelable {
         dest.writeInt(gender);
         dest.writeInt(distance);
         dest.writeInt(cycle);
+        dest.writeString(deviceInfo);
     }
 
     public Bitmap getPhoto() {
@@ -121,6 +125,14 @@ public class Child implements Parcelable {
 
     public void setCycle(int cycle) {
         this.cycle = cycle;
+    }
+
+    public String getDeviceInfo() {
+        return deviceInfo;
+    }
+
+    public void setDeviceInfo(String deviceInfo) {
+        this.deviceInfo = deviceInfo;
     }
 
     public ChildLocation getLocation() {
